@@ -16,7 +16,7 @@
                 <!--/* 게시글 수정인 경우, 서버로 전달할 게시글 번호 (PK) */-->
                 <input type="hidden" id="id" name="id" th:if="${post != null}" th:value="${post.id}" />
 
-                <!--/* 서버로 전달할 공지글 여부 */-->
+                <!--/* 서버로 전달할 비밀글 여부 */-->
                 <input type="hidden" id="secretYn" name="secretYn" />
                 <table class="tb tb_row">
                     <colgroup>
@@ -25,16 +25,18 @@
                     <tbody>
                     <tr>
                         <th scope="row">비밀글</th>
-                        <td><span class="chkbox"><input type="checkbox" id="isSecret" name="isSecret" class="chk" /><i></i><label for="isSecret"> 설정</label></span></td>
+                        <td><span class="chkbox"><input type="checkbox" id="isSecret" name="isSecret" class="chk" onclick="checkDisable(this.form)"/><i></i><label for="isSecret"> 설정</label></span></td>
 
                         <th scope="row">등록일</th>
                         <td colspan="3"><input type="text" id="createdDate" name="createdDate" readonly /></td>
                     </tr>
 
-                    <tr>
-                        <th>비밀번호</th>
-                        <td><span class="chkbox"><input type= id="isSecret" name="isSecret" class="chk" /><i></i><label for="isSecret"> 설정</label></span></td>
-                    </tr>
+<!--                    <tr>-->
+<!--                        <th>비밀번호</th>-->
+<!--                        <td colspan="3"><input type='text' id='password' placeholder="비밀번호를 설정해 주세요." disabled />-->
+
+<!--                        </td>-->
+<!--                    </tr>-->
 
                     <tr>
                         <th>제목 <span class="es">필수 입력</span></th>
@@ -97,6 +99,7 @@
 
             // 게시글 저장(수정)
             function savePost() {
+
                 const form = document.getElementById('saveForm');
                 const fields = [form.title, form.writer, form.content];
                 const fieldNames = ['제목', '이름', '내용'];
@@ -109,7 +112,14 @@
                 form.secretYn.value = form.isSecret.checked;
                 form.action = [[ ${post == null} ]] ? '/post/save.do' : '/post/update.do';
                 form.submit();
+
+
             }
+
+
+
+
+
 
         /*]]>*/
         </script>
